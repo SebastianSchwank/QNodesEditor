@@ -23,10 +23,13 @@ HEADERS  += mainwindow.h \
     qnode.h \
     qslot.h \
     qoutslot.h \
-    qinslot.h
+    qinslot.h \
+    ConnectionStatus.h \
+    TransferStatus.h
 
 FORMS    += mainwindow.ui
 
 CONFIG += mobility
 MOBILITY = 
 
+QMAKE_CXXFLAGS += -std=c++0x

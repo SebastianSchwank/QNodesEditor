@@ -9,23 +9,31 @@ class qSlot
 public:
     qSlot(QString id);
 
-    bool connectTo(qSlot* destinationSlot);
+    QString getId();
+
+    void connectTo(qSlot* destinationSlot);
+    qSlot getConnectedSlot();
+
+    bool isLocked();
 
 protected:
 
-    float   getExchangeVal();
+    void Lock();
+    void Unlock();
+
     QString getExchangeStr();
 
-    void setExchangeVal(float   exchangeVal);
     void setExchangeStr(QString exchangeStr);
 
-    bool currentlyInUse = False;
-
 private:
+    //The Slot we are Connected to
     qSlot* connectedSlot = 0;
-
-    float   exchangeVal;
+    //The Id of the this slot
+    QString id;
+    //In case of thread-usage we store the exchangeVariables in the Slot,too.
     QString exchangeStr;
+    //In case of thread-usage we can lock the Slot here
+    bool currentlyInUse = false;
 
 };
 

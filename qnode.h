@@ -19,23 +19,6 @@ private:
     QVector<qInSlot>  QslotsIn;
     QVector<qOutSlot> QslotsOut;
 
-public:
-    enum ConnectionReturnStatus
-    {
-          OK,
-          SLOT_IN_USE,
-          INVALID_CONNECTION_COMBINATION,
-          UNKNOWN_CONNECTION_ERROR
-    };
-
-    enum TransferReturnStatus
-    {
-          OK,
-          SLOT_IN_USE,
-          NO_SLOT_CONNECTED,
-          UNKNOWN_TRANFER_ERROR
-    };
-
 };
 
 #endif // QNODE_H
