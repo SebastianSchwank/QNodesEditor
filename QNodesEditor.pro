@@ -13,9 +13,17 @@ TEMPLATE = app
 
 
 SOURCES += main.cpp\
-        mainwindow.cpp
+        mainwindow.cpp \
+    qnode.cpp \
+    qslot.cpp \
+    qoutslot.cpp \
+    qinslot.cpp
 
-HEADERS  += mainwindow.h
+HEADERS  += mainwindow.h \
+    qnode.h \
+    qslot.h \
+    qoutslot.h \
+    qinslot.h
 
 FORMS    += mainwindow.ui
 
