@@ -22,7 +22,7 @@ protected:
     bool currentlyInUse = False;
 
 private:
-    qSlot* connectedSlot;
+    qSlot* connectedSlot = 0;
 
     float   exchangeVal;
     QString exchangeStr;
