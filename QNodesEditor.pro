@@ -13,11 +13,20 @@ TEMPLATE = app
 
 
 SOURCES += main.cpp\
-        mainwindow.cpp
+        mainwindow.cpp \
+    qnodeviewer.cpp \
+    qnodemodel.cpp \
+    qnodecontrol.cpp \
+    qnodewidget.cpp
 
-HEADERS  += mainwindow.h
+HEADERS  += mainwindow.h \
+    qnodeviewer.h \
+    qnodemodel.h \
+    qnodecontrol.h \
+    qnodewidget.h
 
-FORMS    += mainwindow.ui
+FORMS    += mainwindow.ui \
+    qnodewidget.ui
 
 CONFIG += mobility
 MOBILITY = 
