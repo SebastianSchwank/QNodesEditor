@@ -4,6 +4,7 @@
 #include <QMainWindow>
 
 #include <qnodewidget.h>
+#include <qnodeview.h>
 
 namespace Ui {
 class MainWindow;
@@ -19,6 +20,7 @@ public:
 
 private:
     Ui::MainWindow *ui;
+    QNodeView      *mNodeView;
 };
 
 #endif // MAINWINDOW_H

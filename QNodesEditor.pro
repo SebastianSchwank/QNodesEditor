@@ -14,16 +14,18 @@ TEMPLATE = app
 
 SOURCES += main.cpp\
         mainwindow.cpp \
-    qnodeviewer.cpp \
     qnodemodel.cpp \
     qnodecontrol.cpp \
-    qnodewidget.cpp
+    qnodewidget.cpp \
+    qnodeview.cpp \
+    qconnectorblob.cpp
 
 HEADERS  += mainwindow.h \
-    qnodeviewer.h \
     qnodemodel.h \
     qnodecontrol.h \
-    qnodewidget.h
+    qnodewidget.h \
+    qnodeview.h \
+    qconnectorblob.h
 
 FORMS    += mainwindow.ui \
     qnodewidget.ui

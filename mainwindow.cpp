@@ -7,12 +7,15 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
 
-    QNodeWidget *_widget = new QNodeWidget(ui->graphicsView_2);
+    mNodeView = new QNodeView(ui->tabWidget);
+    ui->NodeGraphicsView->addWidget(mNodeView);
+
+    QNodeWidget *_widget = new QNodeWidget(mNodeView);
     QGraphicsScene scene;
     QGraphicsProxyWidget *proxy = scene.addWidget(_widget);
 
-     ui->graphicsView_2->setScene(&scene);
-     ui->graphicsView_2->show();
+     mNodeView->setScene(&scene);
+     mNodeView->show();
 
 }
 

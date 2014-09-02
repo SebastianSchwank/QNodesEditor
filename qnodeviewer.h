@@ -1,4 +1,4 @@
-#ifndef QNODEVIEWER_H
+fndef QNODEVIEWER_H
 #define QNODEVIEWER_H
 
 class QNodeViewer

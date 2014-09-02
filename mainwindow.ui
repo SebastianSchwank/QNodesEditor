@@ -26,7 +26,7 @@
        </attribute>
        <layout class="QHBoxLayout" name="horizontalLayout_2">
         <item>
-         <widget class="QGraphicsView" name="graphicsView_2"/>
+         <layout class="QHBoxLayout" name="NodeGraphicsView"/>
         </item>
        </layout>
       </widget>
