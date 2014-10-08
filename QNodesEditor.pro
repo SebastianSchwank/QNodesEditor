@@ -18,17 +18,24 @@ SOURCES += main.cpp\
     qnodecontrol.cpp \
     qnodewidget.cpp \
     qnodeview.cpp \
-    qconnectorblob.cpp
+    qconnectorblob.cpp \
+    qhandle.cpp \
+    qnodeconnection.cpp
 
 HEADERS  += mainwindow.h \
     qnodemodel.h \
     qnodecontrol.h \
     qnodewidget.h \
     qnodeview.h \
-    qconnectorblob.h
+    qconnectorblob.h \
+    qhandle.h \
+    qnodeconnectortuple.h \
+    qdndmessage.h \
+    qnodeconnection.h
 
 FORMS    += mainwindow.ui \
-    qnodewidget.ui
+    qnodewidget.ui \
+    qhandle.ui
 
 CONFIG += mobility
 MOBILITY = 

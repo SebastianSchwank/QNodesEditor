@@ -7,19 +7,28 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
 
+    mScene = new QGraphicsScene(this);
     mNodeView = new QNodeView(ui->tabWidget);
     ui->NodeGraphicsView->addWidget(mNodeView);
 
-    QNodeWidget *_widget = new QNodeWidget(mNodeView);
-    QGraphicsScene scene;
-    QGraphicsProxyWidget *proxy = scene.addWidget(_widget);
-
-     mNodeView->setScene(&scene);
-     mNodeView->show();
-
+    mNodeView->setScene(mScene);
+    mNodeView->show();
 }
 
 MainWindow::~MainWindow()
 {
     delete ui;
+}
+
+void MainWindow::on_actionTextNode_triggered()
+{
+    QNodeWidget *_nodeWidget = new QNodeWidget(NULL,mNodeView);
+    mScene->addWidget(_nodeWidget);
+
+    mNodeView->show();
+}
+
+void MainWindow::on_actionTextNode_changed()
+{
+
 }

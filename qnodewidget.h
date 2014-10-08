@@ -4,6 +4,13 @@
 #include <QWidget>
 #include <QDragEnterEvent>
 
+#include "qhandle.h"
+#include "qconnectorblob.h"
+#include "qnodeview.h"
+
+class qconnectorblob;
+class QNodeView;
+
 namespace Ui {
 class QNodeWidget;
 }
@@ -13,14 +20,30 @@ class QNodeWidget : public QWidget
     Q_OBJECT
 
 public:
-    explicit QNodeWidget(QWidget *parent = 0);
+    explicit QNodeWidget(QWidget *parent = 0, QNodeView *view = 0);
     ~QNodeWidget();
 
-    void mousePressEvent(QMouseEvent *event);
-    void mouseMoveEvent(QMouseEvent *event);
+    QPoint offset;
+    static unsigned int mIDcounter;
+    unsigned int mID;
+
+    QNodeView *mParentView;
+
+private slots:
+    void on_pushButton_pressed();
+
+    void on_pushButton_2_pressed();
+
+    void on_pushButton_3_pressed();
+
+    void on_pushButton_4_pressed();
+
+    void on_pushButton_5_pressed();
 
 private:
-    QPoint offset;
+    QVector<qconnectorblob*> mInConnectors;
+    QVector<qconnectorblob*> mOutConnectors;
+
     Ui::QNodeWidget *ui;
 };
 

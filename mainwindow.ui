@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>800</width>
-    <height>480</height>
+    <width>1230</width>
+    <height>729</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -44,11 +44,41 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>800</width>
+     <width>1230</width>
      <height>26</height>
     </rect>
    </property>
+   <widget class="QMenu" name="menuStart">
+    <property name="title">
+     <string>Start</string>
+    </property>
+    <addaction name="actionLoad"/>
+    <addaction name="actionSave"/>
+   </widget>
+   <widget class="QMenu" name="menuAddNode">
+    <property name="title">
+     <string>Add</string>
+    </property>
+    <addaction name="actionTextNode"/>
+   </widget>
+   <addaction name="menuStart"/>
+   <addaction name="menuAddNode"/>
   </widget>
+  <action name="actionLoad">
+   <property name="text">
+    <string>Load</string>
+   </property>
+  </action>
+  <action name="actionSave">
+   <property name="text">
+    <string>Save</string>
+   </property>
+  </action>
+  <action name="actionTextNode">
+   <property name="text">
+    <string>TextNode</string>
+   </property>
+  </action>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
  <resources/>
