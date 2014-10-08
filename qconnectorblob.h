@@ -64,15 +64,6 @@ private:
     bool mtype; //"False" for "In" && "True" for "Out"
     QNodeWidget *mNodeWidget;
 
-    qDnDMessage thisDnDMessage;
-
-signals:
-    void messageSent(const qDnDMessage &message);
-
-private slots:
-    //Connect "from" = true , "to" = false
-    void sendMessage(qDnDMessage::type type);
-
 };
 
 #endif // QCONNECTORBLOB_H

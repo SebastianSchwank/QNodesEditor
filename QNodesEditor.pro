@@ -30,7 +30,6 @@ HEADERS  += mainwindow.h \
     qconnectorblob.h \
     qhandle.h \
     qnodeconnectortuple.h \
-    qdndmessage.h \
     qnodeconnection.h
 
 FORMS    += mainwindow.ui \

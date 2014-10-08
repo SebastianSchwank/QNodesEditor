@@ -36,17 +36,6 @@ qconnectorblob::qconnectorblob(QWidget *parent, bool type,
     mID = smIDcounter++;
 }
 
-void qconnectorblob::sendMessage(qDnDMessage::type type)
- {
-     qDnDMessage newMessage;
-     newMessage.mType = type;
-     newMessage.senderObject = this;
-     newMessage.dataModel = &Connections;
-
-     thisDnDMessage = newMessage;
-     emit messageSent(thisDnDMessage);
- }
-
 void qconnectorblob::makeDrag()
 {
     QDrag *dr = new QDrag(this);
@@ -86,9 +75,6 @@ void qconnectorblob::mouseMoveEvent(QMouseEvent *event)
     //mimeData->setData(mimeType, data);
     drag->setMimeData(mimeData);
 
-    //qDebug("Send DragStartMessage to the QNodeView");
-    sendMessage(qDnDMessage::Drag);
-
     DnDStartStopFlag = true;
     Qt::DropAction dropAction = drag->exec(Qt::CopyAction | Qt::MoveAction);
     //Disconnect if dropped not on another qConnectorBlob
@@ -106,7 +92,6 @@ void qconnectorblob::mouseMoveEvent(QMouseEvent *event)
 
         Connections[mID].property[1] = nullptr;
         Connections[mID].owner[1] = nullptr;
-        sendMessage(qDnDMessage::DndDisconnect);
     }
 }
 
@@ -131,7 +116,6 @@ void qconnectorblob::dropEvent(QDropEvent *de){
             Connections[this->mID].property[1] = draggedObject;
             Connections[this->mID].owner[1]    = draggedObject->mNodeWidget;
 
-            sendMessage(qDnDMessage::ValidDrop);
             DnDStartStopFlag = false;
         }
     }
