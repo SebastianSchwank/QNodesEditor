@@ -13,13 +13,6 @@ void QNodeView::handleDndMessage(const qDnDMessage &message){
 }
 
 
-void QNodeView::mouseMoveEvent(QMouseEvent *event){
-    //Draw all current Connections again
-    if(event->button() == Qt::MouseButton::RightButton){
-
-    }
-}
-
 void QNodeView::wheelEvent(QWheelEvent* event) {
 
     setTransformationAnchor(QGraphicsView::AnchorUnderMouse);

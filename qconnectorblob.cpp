@@ -26,12 +26,6 @@ qconnectorblob::qconnectorblob(QWidget *parent, bool type,
 
     Connections.insert(mID, newConnection);
 
-    //Connect to NodeView for DnD Messageing
-    QObject::connect(this, SIGNAL(messageSent(qDnDMessage)),
-                     mNodeWidget->mParentView,
-                     SLOT(handleDndMessage(qDnDMessage))
-                     );
-
     //Incrementing the current mIDcounter
     mID = smIDcounter++;
 }

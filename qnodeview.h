@@ -24,9 +24,6 @@ protected:
     //Take over the interaction
     virtual void wheelEvent(QWheelEvent* event);
 
-    //When moving check if a Dnd is in progress
-    void mouseMoveEvent(QMouseEvent *event);
-
     QMap<unsigned int,QNodeConnectorTuple>* dataModel = nullptr;
 
 };
