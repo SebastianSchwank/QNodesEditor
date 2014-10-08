@@ -17,14 +17,9 @@ class QNodeView : public QGraphicsView
 public:
     QNodeView(QWidget* parent = NULL);
 
-public slots:
-    void handleDndMessage(const qDnDMessage &message);
-
 protected:
     //Take over the interaction
     virtual void wheelEvent(QWheelEvent* event);
-
-    QMap<unsigned int,QNodeConnectorTuple>* dataModel = nullptr;
 
 };
 

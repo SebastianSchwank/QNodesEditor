@@ -26,8 +26,38 @@ qconnectorblob::qconnectorblob(QWidget *parent, bool type,
 
     Connections.insert(mID, newConnection);
 
+    //Draw the "noConnection"
+    mConnector.setLine(this->getPositionInGView().x(),
+                       this->getPositionInGView().y(),
+                       this->getPositionInGView().x(),
+                       this->getPositionInGView().y());
+
+    //Set to Scene
+    mNodeWidget->mParentView->scene()->addItem(&mConnector);
+
     //Incrementing the current mIDcounter
     mID = smIDcounter++;
+}
+
+void qconnectorblob::repaintMyConnector(){
+    if(Connections[mID].property[1] != nullptr){
+        qconnectorblob *toConnected = Connections[mID].property[1];
+        mConnector.setLine(this->getPositionInGView().x(),
+                           this->getPositionInGView().y(),
+                           toConnected->getPositionInGView().x(),
+                           toConnected->getPositionInGView().y());
+        toConnected->mConnector.hide();
+    }else
+        mConnector.setLine(this->getPositionInGView().x(),
+                           this->getPositionInGView().y(),
+                           this->getPositionInGView().x(),
+                           this->getPositionInGView().y());
+    mConnector.show();
+}
+
+void qconnectorblob::moveEvent(QMoveEvent *event){
+    //Repaint all of my Connections
+    repaintMyConnector();
 }
 
 void qconnectorblob::makeDrag()
@@ -46,6 +76,10 @@ void qconnectorblob::mousePressEvent(QMouseEvent *event)
 {
     if (event->button() == Qt::LeftButton)
         smDragStartPosition = event->pos();
+}
+
+QPoint qconnectorblob::getPositionInGView(){
+    return mNodeWidget->mapToParent(this->geometry().center());
 }
 
 void qconnectorblob::mouseMoveEvent(QMouseEvent *event)
@@ -79,13 +113,18 @@ void qconnectorblob::mouseMoveEvent(QMouseEvent *event)
                                                                 Connections[mID].owner[1]->mID);
             qDebug("...from   : #QConnector: %i, #QNode: %i ", this->mID,
                                                                 this->mNodeWidget->mID);
-
             Connections[Connections[mID].property[1]->mID].owner[1] = nullptr;
             Connections[Connections[mID].property[1]->mID].property[1] = nullptr;
+
+            Connections[mID].property[1]->setChecked(false);
         }
 
         Connections[mID].property[1] = nullptr;
         Connections[mID].owner[1] = nullptr;
+
+        repaintMyConnector();
+
+        this->setChecked(false);
     }
 }
 
@@ -111,6 +150,11 @@ void qconnectorblob::dropEvent(QDropEvent *de){
             Connections[this->mID].owner[1]    = draggedObject->mNodeWidget;
 
             DnDStartStopFlag = false;
+
+            repaintMyConnector();
+
+            draggedObject->setChecked(true);
+            setChecked(true);
         }
     }
 }

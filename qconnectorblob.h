@@ -16,6 +16,7 @@
 #include <QMimeData>
 #include <QMimeType>
 #include <QMap>
+#include <QGraphicsLineItem>
 
 #include "qnodewidget.h"
 #include "qnodeconnectortuple.h"
@@ -50,7 +51,14 @@ public:
     void dragMoveEvent(QDragMoveEvent *de);
     void dragEnterEvent(QDragEnterEvent *event);
 
+    void moveEvent(QMoveEvent *event);
+
+    void repaintMyConnector();
+    QGraphicsLineItem mConnector;
+
 private:
+    QPoint getPositionInGView();
+
     static QMap<unsigned int,QNodeConnectorTuple> Connections; //DataModel
 
     static unsigned int smIDcounter;
@@ -63,6 +71,7 @@ private:
 
     bool mtype; //"False" for "In" && "True" for "Out"
     QNodeWidget *mNodeWidget;
+
 
 };
 

@@ -1,4 +1,5 @@
-#include "qnodeconnection.h"
+
+include "qnodeconnection.h"
 
 QNodeConnection::QNodeConnection()
 {

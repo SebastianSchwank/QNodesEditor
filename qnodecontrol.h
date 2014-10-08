@@ -1,4 +1,4 @@
-#ifndef QNODECONTROL_H
+ifndef QNODECONTROL_H
 #define QNODECONTROL_H
 
 class QNodeControl

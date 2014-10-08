@@ -17,6 +17,15 @@ QNodeWidget::QNodeWidget(QWidget *parent, QNodeView *view) :
     mID = mIDcounter++;
 }
 
+void QNodeWidget::moveEvent(QMoveEvent *event){
+    for(int i = 0; i < mInConnectors.size(); i++){
+        mInConnectors[i]->moveEvent(event);
+    }
+    for(int i = 0; i < mOutConnectors.size(); i++){
+        mOutConnectors[i]->moveEvent(event);
+    }
+}
+
 QNodeWidget::~QNodeWidget()
 {
     delete ui;

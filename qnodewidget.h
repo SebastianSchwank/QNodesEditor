@@ -27,6 +27,8 @@ public:
     static unsigned int mIDcounter;
     unsigned int mID;
 
+    void moveEvent(QMoveEvent *event);
+
     QNodeView *mParentView;
 
 private slots:
