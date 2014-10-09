@@ -1,13 +1,13 @@
 #include "qconnectorblob.h"
 #include "ui_qconnectorblob.h"
 
-unsigned int qconnectorblob::smIDcounter = 0;
+unsigned long qconnectorblob::smIDcounter = 0;
 bool qconnectorblob::DnDStartStopFlag = false;
 QPoint qconnectorblob::smDragStartPosition;
-QMap<unsigned int,QNodeConnectorTuple> qconnectorblob::Connections;
+QMap<unsigned long,QNodeConnectorTuple> qconnectorblob::Connections;
 
 qconnectorblob::qconnectorblob(QWidget *parent, bool type,
-                               QNodeWidget *myPWidget) :
+                               QNodeWidget *myPWidget, long myID, long connectToID) :
     QRadioButton(parent)
 {
     setAcceptDrops(true);
@@ -35,8 +35,27 @@ qconnectorblob::qconnectorblob(QWidget *parent, bool type,
     //Set to Scene
     mNodeWidget->mParentView->scene()->addItem(&mConnector);
 
-    //Incrementing the current mIDcounter
-    mID = smIDcounter++;
+    if(myID == -1){
+        //Incrementing the current mIDcounter
+        mID = smIDcounter++;
+        mConnectedToID = -1;
+    }else{
+        mID = myID;
+        mConnectedToID = connectToID;
+    }
+}
+
+void qconnectorblob::postLoadingConnect(){
+    //Here will all connections be esablished after the whole Scene is generated
+
+
+    repaintMyConnector();
+}
+
+QString qconnectorblob::getIDTuple(){
+    QString IDTuple = "[" + QString::number(mID) +
+                      "," + QString::number(mConnectedToID) + "]";
+    return IDTuple;
 }
 
 void qconnectorblob::repaintMyConnector(){
@@ -109,14 +128,18 @@ void qconnectorblob::mouseMoveEvent(QMouseEvent *event)
     if(DnDStartStopFlag){
 
         if(Connections[mID].property[1] != nullptr){
-            qDebug("Disconnect: #QConnector: %i, #QNode: %i ",  Connections[mID].property[1]->mID,
+            qDebug("Disconnect: #QConnector: %ld, #QNode: %ld ",  Connections[mID].property[1]->mID,
                                                                 Connections[mID].owner[1]->mID);
-            qDebug("...from   : #QConnector: %i, #QNode: %i ", this->mID,
+            qDebug("...from   : #QConnector: %ld, #QNode: %ld ", this->mID,
                                                                 this->mNodeWidget->mID);
+
             Connections[Connections[mID].property[1]->mID].owner[1] = nullptr;
             Connections[Connections[mID].property[1]->mID].property[1] = nullptr;
 
             Connections[mID].property[1]->setChecked(false);
+            Connections[mID].property[1]->repaintMyConnector();
+
+            mConnectedToID = -1;
         }
 
         Connections[mID].property[1] = nullptr;
@@ -126,6 +149,8 @@ void qconnectorblob::mouseMoveEvent(QMouseEvent *event)
 
         this->setChecked(false);
     }
+
+    mNodeWidget->updateIOText();
 }
 
 void qconnectorblob::dropEvent(QDropEvent *de){
@@ -138,9 +163,9 @@ void qconnectorblob::dropEvent(QDropEvent *de){
     //write the data into the model
     if(draggedObject->mNodeWidget->mID != this->mNodeWidget->mID){
         if(draggedObject->mtype != this->mtype){
-            qDebug("From: #QConnector: %i, #QNode: %i ", draggedObject->mID,
+            qDebug("From: #QConnector: %ld, #QNode: %ld ", draggedObject->mID,
                                                          draggedObject->mNodeWidget->mID);
-            qDebug("To  : #QConnector: %i, #QNode: %i ", this->mID,
+            qDebug("To  : #QConnector: %ld, #QNode: %ld ", this->mID,
                                                          this->mNodeWidget->mID);
 
             Connections[draggedObject->mID].property[1] = this;
@@ -149,9 +174,13 @@ void qconnectorblob::dropEvent(QDropEvent *de){
             Connections[this->mID].property[1] = draggedObject;
             Connections[this->mID].owner[1]    = draggedObject->mNodeWidget;
 
+            mConnectedToID = draggedObject->mID;
+            draggedObject->mConnectedToID = mID;
+
             DnDStartStopFlag = false;
 
             repaintMyConnector();
+            mNodeWidget->updateIOText();
 
             draggedObject->setChecked(true);
             setChecked(true);

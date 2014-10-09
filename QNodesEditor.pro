@@ -18,7 +18,8 @@ SOURCES += main.cpp\
     qnodewidget.cpp \
     qnodeview.cpp \
     qconnectorblob.cpp \
-    qhandle.cpp
+    qhandle.cpp \
+    qnodeloadnsave.cpp
 
 HEADERS  += mainwindow.h \
     qnodemodel.h \
@@ -26,7 +27,8 @@ HEADERS  += mainwindow.h \
     qnodeview.h \
     qconnectorblob.h \
     qhandle.h \
-    qnodeconnectortuple.h
+    qnodeconnectortuple.h \
+    qnodeloadnsave.h
 
 FORMS    += mainwindow.ui \
     qnodewidget.ui \

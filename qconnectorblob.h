@@ -37,11 +37,14 @@ class qconnectorblob : public QRadioButton
 
 public:
     explicit qconnectorblob(QWidget *parent = 0, bool type = false,
-                            QNodeWidget *myPWidget = 0);
+                            QNodeWidget *myPWidget = 0, long myID = -1 , long connectToID = -1);
+
     ~qconnectorblob();
 
 public slots:
     void makeDrag();
+
+    void postLoadingConnect();
 
 public:
     void mousePressEvent(QMouseEvent *event);
@@ -56,20 +59,24 @@ public:
     void repaintMyConnector();
     QGraphicsLineItem mConnector;
 
+    QString getIDTuple();
+
+    bool mtype; //"False" for "In" && "True" for "Out"
+
 private:
     QPoint getPositionInGView();
 
-    static QMap<unsigned int,QNodeConnectorTuple> Connections; //DataModel
+    static QMap<unsigned long,QNodeConnectorTuple> Connections; //DataModel
 
-    static unsigned int smIDcounter;
-    unsigned int mID;
+    static unsigned long smIDcounter;
+    long mID;
+    long mConnectedToID;
 
     static bool DnDStartStopFlag;
 
     static QPoint smDragStartPosition;
     QMimeData mimeData;
 
-    bool mtype; //"False" for "In" && "True" for "Out"
     QNodeWidget *mNodeWidget;
 
 

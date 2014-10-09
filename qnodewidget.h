@@ -28,6 +28,9 @@ public:
     unsigned int mID;
 
     void moveEvent(QMoveEvent *event);
+    void addQConnection(qconnectorblob *newConn);
+
+    void updateIOText();
 
     QNodeView *mParentView;
 
