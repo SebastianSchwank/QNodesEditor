@@ -24,9 +24,16 @@
        <attribute name="title">
         <string>Graphics View</string>
        </attribute>
-       <layout class="QHBoxLayout" name="horizontalLayout_2">
+       <layout class="QVBoxLayout" name="verticalLayout">
         <item>
          <layout class="QHBoxLayout" name="NodeGraphicsView"/>
+        </item>
+        <item>
+         <widget class="QPushButton" name="pushButton">
+          <property name="text">
+           <string>Generate XML</string>
+          </property>
+         </widget>
         </item>
        </layout>
       </widget>
@@ -34,6 +41,11 @@
        <attribute name="title">
         <string>Text View</string>
        </attribute>
+       <layout class="QVBoxLayout" name="verticalLayout_2">
+        <item>
+         <widget class="QPlainTextEdit" name="plainTextEdit"/>
+        </item>
+       </layout>
       </widget>
      </widget>
     </item>

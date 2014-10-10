@@ -1,6 +1,7 @@
 #ifndef QCONNECTORBLOB_H
 #define QCONNECTORBLOB_H
 
+#include <QApplication>
 #include <QWidget>
 #include <QT>
 #include <QGraphicsScene>
@@ -62,6 +63,8 @@ public:
     QString getIDTuple();
 
     bool mtype; //"False" for "In" && "True" for "Out"
+
+    void addConnection(qconnectorblob newBlob);
 
 private:
     QPoint getPositionInGView();

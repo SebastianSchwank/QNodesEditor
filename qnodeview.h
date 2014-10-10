@@ -7,6 +7,7 @@
 #include <QGraphicsView>
 #include <QMouseEvent>
 #include <QWheelEvent>
+#include <QPoint>
 
 #include <QDrag>
 
@@ -20,6 +21,8 @@ public:
 protected:
     //Take over the interaction
     virtual void wheelEvent(QWheelEvent* event);
+    //Make the vieport move when clicking on the Canvas
+
 
 };
 

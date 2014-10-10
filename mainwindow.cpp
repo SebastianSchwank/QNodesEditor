@@ -23,6 +23,7 @@ MainWindow::~MainWindow()
 void MainWindow::on_actionTextNode_triggered()
 {
     QNodeWidget *_nodeWidget = new QNodeWidget(NULL,mNodeView);
+
     mScene->addWidget(_nodeWidget);
 
     mNodeView->show();
@@ -30,5 +31,16 @@ void MainWindow::on_actionTextNode_triggered()
 
 void MainWindow::on_actionTextNode_changed()
 {
+
+}
+
+void MainWindow::on_tabWidget_tabBarClicked(int index)
+{
+    //if(index == 1) qDebug("TextTab clicked.");
+}
+
+void MainWindow::on_pushButton_clicked()
+{
+    //Generate XML from the Model
 
 }

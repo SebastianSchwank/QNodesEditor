@@ -4,17 +4,34 @@
 
 unsigned int QNodeWidget::mIDcounter = 0;
 
-QNodeWidget::QNodeWidget(QWidget *parent, QNodeView *view) :
+QVector<QNodeWidget*> QNodeWidget::QNodeCollector;
+
+QNodeWidget::QNodeWidget(QWidget *parent, QNodeView *view, QString thisID, QPoint *myPos) :
     QWidget(parent),
     ui(new Ui::QNodeWidget)
 {
-    mParentView = view;
     ui->setupUi(this);
+
+    //Make this widget scalable
+    this->setWindowFlags(Qt::SubWindow);
+
+    QSizeGrip * sizeGrip = new QSizeGrip(this);
+    ui->gridLayout_2->addWidget(sizeGrip, 0,0,1,1,Qt::AlignBottom | Qt::AlignRight);
+
     QHandle *_tmpHandlePtr = new QHandle(this,this);
     ui->verticalLayout_3->addWidget(_tmpHandlePtr);
     ui->verticalLayout->update();
 
+    mParentView = view;
     mID = mIDcounter++;
+
+    if(thisID == "") this->thisID = "Node"+QString::number(mID);
+    else this->thisID = thisID;
+    ui->lineEdit->setText(this->thisID);
+
+    if(myPos != nullptr) this->move(myPos->x(),myPos->y());
+
+    QNodeCollector.append(this);
 }
 
 void QNodeWidget::addQConnection(qconnectorblob *newConn){
@@ -97,5 +114,6 @@ void QNodeWidget::on_pushButton_4_pressed()
 
 void QNodeWidget::on_pushButton_5_pressed()
 {
+
     this->deleteLater();
 }

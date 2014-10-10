@@ -4,7 +4,7 @@
 #
 #-------------------------------------------------
 
-QT       += core gui
+QT       += core gui xml
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -19,7 +19,9 @@ SOURCES += main.cpp\
     qnodeview.cpp \
     qconnectorblob.cpp \
     qhandle.cpp \
-    qnodeloadnsave.cpp
+    qxmlwriter.cpp \
+    qxmlparser.cpp \
+    qnodeobjectfactory.cpp
 
 HEADERS  += mainwindow.h \
     qnodemodel.h \
@@ -28,7 +30,9 @@ HEADERS  += mainwindow.h \
     qconnectorblob.h \
     qhandle.h \
     qnodeconnectortuple.h \
-    qnodeloadnsave.h
+    qxmlwriter.h \
+    qxmlparser.h \
+    qnodeobjectfactory.h
 
 FORMS    += mainwindow.ui \
     qnodewidget.ui \

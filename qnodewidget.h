@@ -3,6 +3,7 @@
 
 #include <QWidget>
 #include <QDragEnterEvent>
+#include <qsizegrip.h>
 
 #include "qhandle.h"
 #include "qconnectorblob.h"
@@ -20,19 +21,23 @@ class QNodeWidget : public QWidget
     Q_OBJECT
 
 public:
-    explicit QNodeWidget(QWidget *parent = 0, QNodeView *view = 0);
+    explicit QNodeWidget(QWidget *parent = 0, QNodeView *view = 0,
+                         QString thisID = "", QPoint *myPos = 0);
     ~QNodeWidget();
 
     QPoint offset;
     static unsigned int mIDcounter;
-    unsigned int mID;
+    long mID;
+    QString thisID;
 
     void moveEvent(QMoveEvent *event);
+
     void addQConnection(qconnectorblob *newConn);
 
     void updateIOText();
 
     QNodeView *mParentView;
+    static QVector<QNodeWidget*> QNodeCollector;
 
 private slots:
     void on_pushButton_pressed();
@@ -46,6 +51,7 @@ private slots:
     void on_pushButton_5_pressed();
 
 private:
+
     QVector<qconnectorblob*> mInConnectors;
     QVector<qconnectorblob*> mOutConnectors;
 

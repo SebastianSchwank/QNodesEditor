@@ -1,5 +1,4 @@
 #include "qconnectorblob.h"
-#include "ui_qconnectorblob.h"
 
 unsigned long qconnectorblob::smIDcounter = 0;
 bool qconnectorblob::DnDStartStopFlag = false;
@@ -129,9 +128,9 @@ void qconnectorblob::mouseMoveEvent(QMouseEvent *event)
 
         if(Connections[mID].property[1] != nullptr){
             qDebug("Disconnect: #QConnector: %ld, #QNode: %ld ",  Connections[mID].property[1]->mID,
-                                                                Connections[mID].owner[1]->mID);
+                                                                  Connections[mID].owner[1]->mID);
             qDebug("...from   : #QConnector: %ld, #QNode: %ld ", this->mID,
-                                                                this->mNodeWidget->mID);
+                                                                 this->mNodeWidget->mID);
 
             Connections[Connections[mID].property[1]->mID].owner[1] = nullptr;
             Connections[Connections[mID].property[1]->mID].property[1] = nullptr;
@@ -164,9 +163,9 @@ void qconnectorblob::dropEvent(QDropEvent *de){
     if(draggedObject->mNodeWidget->mID != this->mNodeWidget->mID){
         if(draggedObject->mtype != this->mtype){
             qDebug("From: #QConnector: %ld, #QNode: %ld ", draggedObject->mID,
-                                                         draggedObject->mNodeWidget->mID);
+                                                           draggedObject->mNodeWidget->mID);
             qDebug("To  : #QConnector: %ld, #QNode: %ld ", this->mID,
-                                                         this->mNodeWidget->mID);
+                                                           this->mNodeWidget->mID);
 
             Connections[draggedObject->mID].property[1] = this;
             Connections[draggedObject->mID].owner[1]    = this->mNodeWidget;
