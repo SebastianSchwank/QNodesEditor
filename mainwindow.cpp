@@ -42,5 +42,7 @@ void MainWindow::on_tabWidget_tabBarClicked(int index)
 void MainWindow::on_pushButton_clicked()
 {
     //Generate XML from the Model
-
+    QString XML = QXMLwriter::writeToXML(QNodeWidget::QNodeCollector);
+    ui->plainTextEdit->clear();
+    ui->plainTextEdit->insertPlainText(XML);
 }

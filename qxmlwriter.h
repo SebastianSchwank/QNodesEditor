@@ -12,7 +12,7 @@ class QXMLwriter
 public:
     QXMLwriter();
 
-    static QString writeToXML(QVector<QNodeWidget>* dataModel);
+    static QString writeToXML(QMap<int, QNodeWidget *> dataModel);
 };
 
 #endif // QXMLWRITER_H

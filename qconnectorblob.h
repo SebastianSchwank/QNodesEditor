@@ -58,8 +58,10 @@ public:
     void moveEvent(QMoveEvent *event);
 
     void repaintMyConnector();
+    void clearMyConnector();
     QGraphicsLineItem mConnector;
 
+    long getmID();
     QString getIDTuple();
 
     bool mtype; //"False" for "In" && "True" for "Out"

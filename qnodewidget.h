@@ -22,22 +22,23 @@ class QNodeWidget : public QWidget
 
 public:
     explicit QNodeWidget(QWidget *parent = 0, QNodeView *view = 0,
-                         QString thisID = "", QPoint *myPos = 0);
+                         QString mName = "", QPoint *myPos = 0);
     ~QNodeWidget();
 
     QPoint offset;
     static unsigned int mIDcounter;
     long mID;
-    QString thisID;
+    QString mName;
 
     void moveEvent(QMoveEvent *event);
 
     void addQConnection(qconnectorblob *newConn);
+    QVector<qconnectorblob*> getConnectors();
 
     void updateIOText();
 
     QNodeView *mParentView;
-    static QVector<QNodeWidget*> QNodeCollector;
+    static QMap<int,QNodeWidget*> QNodeCollector;
 
 private slots:
     void on_pushButton_pressed();
@@ -49,6 +50,10 @@ private slots:
     void on_pushButton_4_pressed();
 
     void on_pushButton_5_pressed();
+
+    void on_label_destroyed();
+
+    void on_lineEdit_textChanged(const QString &arg1);
 
 private:
 

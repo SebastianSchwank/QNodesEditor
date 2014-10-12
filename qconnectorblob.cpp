@@ -14,6 +14,9 @@ qconnectorblob::qconnectorblob(QWidget *parent, bool type,
     mNodeWidget = myPWidget;
     mtype = type;
 
+    //Resize for Android
+    this->setFixedSize(40,40);
+
     //Create a new Tuple for storing Connections
     QNodeConnectorTuple newConnection;
     //THIS
@@ -42,6 +45,13 @@ qconnectorblob::qconnectorblob(QWidget *parent, bool type,
         mID = myID;
         mConnectedToID = connectToID;
     }
+
+    //Name with the ID
+    this->setText(QString::number(mID));
+}
+
+long qconnectorblob::getmID(){
+    return mID;
 }
 
 void qconnectorblob::postLoadingConnect(){
@@ -57,6 +67,29 @@ QString qconnectorblob::getIDTuple(){
     return IDTuple;
 }
 
+void qconnectorblob::clearMyConnector(){
+    if(Connections[mID].property[1] != nullptr){
+        qconnectorblob *toConnected = Connections[mID].property[1];
+        mConnector.hide();
+        toConnected->mConnector.hide();
+        this->setChecked(false);
+        toConnected->setChecked(false);
+
+        //Clear "it's" Connection
+        Connections[Connections[mID].property[1]->mID].owner[1] = nullptr;
+        Connections[Connections[mID].property[1]->mID].property[1] = nullptr;
+        //Clear my Connection
+        Connections[mID].property[1] = nullptr;
+        Connections[mID].owner[1] = nullptr;
+    }else{
+        mConnector.hide();
+        this->setChecked(false);
+        //Clear my Connection
+        Connections[mID].property[1] = nullptr;
+        Connections[mID].owner[1] = nullptr;
+    }
+}
+
 void qconnectorblob::repaintMyConnector(){
     if(Connections[mID].property[1] != nullptr){
         qconnectorblob *toConnected = Connections[mID].property[1];
@@ -65,12 +98,10 @@ void qconnectorblob::repaintMyConnector(){
                            toConnected->getPositionInGView().x(),
                            toConnected->getPositionInGView().y());
         toConnected->mConnector.hide();
-    }else
-        mConnector.setLine(this->getPositionInGView().x(),
-                           this->getPositionInGView().y(),
-                           this->getPositionInGView().x(),
-                           this->getPositionInGView().y());
-    mConnector.show();
+        mConnector.show();
+    }else{
+        mConnector.hide();
+    }
 }
 
 void qconnectorblob::moveEvent(QMoveEvent *event){
@@ -127,6 +158,8 @@ void qconnectorblob::mouseMoveEvent(QMouseEvent *event)
     if(DnDStartStopFlag){
 
         if(Connections[mID].property[1] != nullptr){
+            clearMyConnector();
+
             qDebug("Disconnect: #QConnector: %ld, #QNode: %ld ",  Connections[mID].property[1]->mID,
                                                                   Connections[mID].owner[1]->mID);
             qDebug("...from   : #QConnector: %ld, #QNode: %ld ", this->mID,
@@ -144,8 +177,6 @@ void qconnectorblob::mouseMoveEvent(QMouseEvent *event)
         Connections[mID].property[1] = nullptr;
         Connections[mID].owner[1] = nullptr;
 
-        repaintMyConnector();
-
         this->setChecked(false);
     }
 
@@ -162,6 +193,9 @@ void qconnectorblob::dropEvent(QDropEvent *de){
     //write the data into the model
     if(draggedObject->mNodeWidget->mID != this->mNodeWidget->mID){
         if(draggedObject->mtype != this->mtype){
+            clearMyConnector();
+            draggedObject->clearMyConnector();
+
             qDebug("From: #QConnector: %ld, #QNode: %ld ", draggedObject->mID,
                                                            draggedObject->mNodeWidget->mID);
             qDebug("To  : #QConnector: %ld, #QNode: %ld ", this->mID,
@@ -200,13 +234,6 @@ void qconnectorblob::dragEnterEvent(QDragEnterEvent *event){
 
 qconnectorblob::~qconnectorblob()
 {
-
-    //Delete "THAT" :-P (if you understand these lines everything else is easy as reading micky mouse)
-    //Tipp: "0" is always "THIS" and "1" is always "THAT"
-    if(Connections[mID].property[1] != nullptr){
-        Connections[Connections[mID].property[1]->mID].owner[1] = nullptr;
-        Connections[Connections[mID].property[1]->mID].property[1] = nullptr;
-    }
-
+    clearMyConnector();
     Connections.remove(mID);
 }
